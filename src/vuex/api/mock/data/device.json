@@ -1,0 +1,9 @@
+{
+  "device": {
+    "name": "wg0",
+    "type": "Linux kernel",
+    "public_key": "xoY2MZZ1UmbEakFBPyqryHwTaMi6ae4myP+vuILmJUY=",
+    "listen_port": 51820,
+    "num_peers": 13
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "peer": {
+    "public_key": "xoY2MZZ1UmbEakFBPyqryHwTaMi6ae4myP+vuILmJUY=",
+    "has_preshared_key": false,
+    "endpoint": "67.234.65.104:57436",
+    "last_handshake": "2020-02-20T16:35:12Z",
+    "receive_bytes": 834854756,
+    "transmit_bytes": 3883746,
+    "allowed_ips": [
+      "10.1.1.0/24"
+    ],
+    "protocol_version": 1
+  }
+}

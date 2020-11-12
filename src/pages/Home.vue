@@ -11,50 +11,57 @@
                 </h6>
             </div>
             <div class="card-body">
-              <div class="row">
+              <div class="row" v-if="loading">
+                <div class="col-12 text-center">
+                  <div class="fa-3x m-5">
+                    <i class="fas fa-spinner fa-spin"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="row" v-else>
                 <div class="col-lg-7">
                   <div class="row">
-                    <div class="col-lg-8">
-                      Device
-                    </div>
                     <div class="col-lg-4">
-                      wg0
+                      <b>Device</b>
+                    </div>
+                    <div class="col-lg-8 text-right">
+                      {{device.name}}
                     </div>
                   </div>
                   <hr>
                   <div class="row">
-                    <div class="col-lg-8">
-                      Type
-                    </div>
                     <div class="col-lg-4">
-                      Linux kernel
+                      <b>Type</b>
+                    </div>
+                    <div class="col-lg-8 text-right">
+                      {{device.type}}
                     </div>
                   </div>
                   <hr>
                   <div class="row">
-                    <div class="col-lg-8">
-                      Public key
-                    </div>
                     <div class="col-lg-4">
-                      xoY2MZZ1UmbEakFBPyqryHwTaMi6ae4myP+vuILmJUY=
+                      <b>Public key</b>
+                    </div>
+                    <div class="col-lg-8 text-right">
+                      {{device.public_key}}
                     </div>
                   </div>
                   <hr>
                   <div class="row">
-                    <div class="col-lg-8">
-                      Listen port
-                    </div>
                     <div class="col-lg-4">
-                      51820
+                      <b>Listen port</b>
+                    </div>
+                    <div class="col-lg-8 text-right">
+                      {{device.listen_port}}
                     </div>
                   </div>
                   <hr>
                   <div class="row">
-                    <div class="col-lg-8">
-                      Number of peers
-                    </div>
                     <div class="col-lg-4">
-                      13
+                      <b>Number of peers</b>
+                    </div>
+                    <div class="col-lg-8 text-right">
+                      {{device.num_peers}}
                     </div>
                   </div>
                   <hr>
@@ -74,7 +81,25 @@
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
+  data () {
+    return {
+      loading: true
+    }
+  },
+  computed: {
+    device() {
+      return this.$store.state.deviceInfo.device
+    }
+  },
+  created() {
+    this.loading = true
+    this.$store.dispatch('fetchDeviceInfo').then(
+      response => {
+        this.loading = false
+      }
+    )
+  }
 }
 </script>
 
