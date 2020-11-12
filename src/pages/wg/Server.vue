@@ -78,22 +78,22 @@
                       <table class="table">
                         <thead class="thead-light">
                           <tr class="text-center">
-                            <th scope="col">Name</th>
-                            <th scope="col">Client IP</th>
+                            <th scope="col">Public key</th>
+                            <th scope="col">Allowed IPs</th>
                             <th scope="col">Configurations</th>
                             <th scope="col">Delete</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="text-center">
-                            <th scope="row">Edu</th>
-                            <td>192.168.1.1</td>
-                            <td><i class="fas fa-file"></i></td>
-                            <td>
-                              <a href="#" v-on:click="deleteModal()">
-                                <i class="fas fa-trash"></i>
-                              </a>
-                            </td>
+                          <tr class="text-center" v-for="peer in peers" :key="peer.public_key">
+                              <td>{{peer.public_key}}</td>
+                              <td>{{peer.allowed_ips.join(', ')}}</td>
+                              <td><i class="fas fa-file"></i></td>
+                              <td>
+                                <a href="#" v-on:click="deleteModal()">
+                                  <i class="fas fa-trash"></i>
+                                </a>
+                              </td>
                           </tr>
                         </tbody>
                       </table>
@@ -165,6 +165,32 @@ import $ from 'jquery'
 
 export default {
   name: 'Server',
+  data () {
+    return {
+      loading: true
+    }
+  },
+  computed: {
+    device() {
+      return this.$store.state.deviceInfo.device
+    },
+    peers() {
+      return this.$store.state.peers.peers
+    }
+  },
+  created() {
+    this.loading = true
+    this.$store.dispatch('fetchDeviceInfo').then(
+      response => {
+        this.loading = false
+      }
+    )
+    this.$store.dispatch('fetchPeers').then(
+      response => {
+        this.loading = false
+      }
+    )
+  },
   methods: {
     deleteModal: function () {
         $('#deleteModal').modal('show');
