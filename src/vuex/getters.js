@@ -1,0 +1,1 @@
+export const wgPeers = state => state.wg_peers.main.length
